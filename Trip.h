@@ -11,6 +11,7 @@ private:
 	std::string company;
 	std::string timeStamp;
 	double price;
+	bool isRaining;
 public:
 	//Constructor and Destructor
 	Trip();
@@ -26,6 +27,7 @@ public:
 	std::string getCompany();
 	std::string getTimeStamp();
 	double getPrice();
+	bool getIsRaining();
 
 	//Mutators
 	void setTripId(std::string);
@@ -34,6 +36,7 @@ public:
 	void setCompany(std::string);
 	void setTimeStamp(std::string);
 	void setPrice(double);
+	void setIsRaining(bool);
 };
 
 #endif

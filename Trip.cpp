@@ -38,6 +38,10 @@ double Trip::getPrice(){
 	return price;
 }
 
+bool Trip::getIsRaining(){
+	return isRaining;
+}
+
 
 //Mutators
 void Trip::setTripId(std::string tripId){
@@ -62,4 +66,8 @@ void Trip::setTimeStamp(std::string timeStamp){
 
 void Trip::setPrice(double price){
 	this->price = price;
+}
+
+void Trip::setIsRaining(bool isRaining){
+	this->isRaining = isRaining;
 }
