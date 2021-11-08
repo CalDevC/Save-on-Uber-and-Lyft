@@ -1,0 +1,65 @@
+#include "Trip.h"
+
+Trip::Trip(): tripId(NULL), sourceLoc(NULL), destination(NULL), company(NULL), timeStamp(NULL){
+
+}
+
+Trip::~Trip(){
+	//Any needed clean up
+}
+
+//Member functions
+std::string translateTime(std::string){
+	return "";
+}
+
+//Accessors
+std::string Trip::getTripId(){
+	return tripId;
+}
+
+std::string Trip::getSourceLoc(){
+	return sourceLoc;
+}
+
+std::string Trip::getDestination(){
+	return destination;
+}
+
+std::string Trip::getCompany(){
+	return company;
+}
+
+std::string Trip::getTimeStamp(){
+	return timeStamp;
+}
+
+double Trip::getPrice(){
+	return price;
+}
+
+
+//Mutators
+void Trip::setTripId(std::string tripId){
+	this->tripId = tripId;
+}
+
+void Trip::setSourceLoc(std::string sourceLoc){
+	this->sourceLoc = sourceLoc;
+}
+
+void Trip::setDestination(std::string destination){
+	this->destination = destination;
+}
+
+void Trip::setCompany(std::string company){
+	this->company = company;
+}
+
+void Trip::setTimeStamp(std::string timeStamp){
+	this->timeStamp = timeStamp;
+}
+
+void Trip::setPrice(double price){
+	this->price = price;
+}
