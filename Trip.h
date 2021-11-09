@@ -12,6 +12,7 @@ private:
 	std::string timeStamp;
 	double price;
 	bool isRaining;
+  
 public:
 	//Constructor and Destructor
 	Trip();
