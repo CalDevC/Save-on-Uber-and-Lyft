@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <cctype>
 #include<Weather.h>
+#include <math.h>
 
 namespace FilterData
 {
@@ -14,8 +15,10 @@ namespace FilterData
     std::string ltrim(const std::string &s);
     std::string rtrim(const std::string &s);
     std::string trimString(const std::string &s);
-    void ConvertToLower(std::string &s);
+    std::string ConvertToLower(std::string &s);
     std::vector<Weather> FilterWeatherData(const std::string sourceLocation,const std::string DestinationLocation,const double lowerRange,const double higherRange,std::vector<Weather> WeatherData);
+    std::vector<Trip> MatchTripsWithWeather(std::vector<Trip> FilteredTrips, std::vector<Weather> FilteredWeather);
+    long long int GetTimeStampNumber(std::string StringTimeStamp);
 }
 
 #endif
