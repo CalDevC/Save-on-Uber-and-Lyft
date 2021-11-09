@@ -1,6 +1,8 @@
 #include "FilterData.h"
+#include "iostream"
 const std::string WHITESPACE = " \n\r\t\f\v";
 
+namespace FilterData{
 std::vector<Trip> FilterTrips(const std::string sourceLocation,const std::string DestinationLocation,std::vector<Trip> Trips)
 {
     std::vector<Trip> resultData;
@@ -59,4 +61,37 @@ std::vector<Weather> FilterWeatherData(const std::string sourceLocation,const st
         }
     }
     return resultData;
+}
+
+std::vector<Trip> MatchTripsWithWeather(std::vector<Trip> FilteredTrips, std::vector<Weather> FilteredWeather)
+{
+    std::vector<Trip> resultData; 
+    for(int i=0;i<FilteredWeather.size();i++)
+    {
+        std::string StringTimeStamp=FilteredWeather[i].GetTimestamp();
+        long long int TimeStamp=GetTimeStampNumber(StringTimeStamp);
+        long long int lowerRange = TimeStamp-3600;
+        long long int upperRange = TimeStamp+3600;
+        for(int j=0;j<FilteredTrips.size();j++)
+        {
+            long long int TripTimestamp = GetTimeStampNumber(FilteredTrips[i].getTimeStamp())/1000;
+            if(TripTimestamp>=lowerRange && TripTimestamp<upperRange)
+            {
+                resultData.push_back(FilteredTrips[j]);
+            }
+        }
+    }
+    return resultData;
+}
+
+ long long int GetTimeStampNumber(std::string StringTimeStamp)
+ {
+     long long int TimeStamp=0;
+     for(int j=0;j<StringTimeStamp.size();j++)
+    {
+        int charInt = StringTimeStamp[j]-'0';
+        TimeStamp+=charInt*pow(10,j);
+    }
+    return TimeStamp;
+ }
 }
