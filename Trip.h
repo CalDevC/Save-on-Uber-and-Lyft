@@ -12,10 +12,10 @@ private:
 	std::string timeStamp;
 	double price;
 	bool isRaining;
-  
+
 public:
 	//Constructor and Destructor
-	Trip();
+	Trip(std::string id, std::string source, std::string destination, std::string company, std::string timeStamp, double price, bool isRaining);
 	~Trip();
 
 	//Member functions

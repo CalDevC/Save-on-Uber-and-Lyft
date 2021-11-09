@@ -1,8 +1,7 @@
 #include "Trip.h"
 
-Trip::Trip(): tripId(NULL), sourceLoc(NULL), destination(NULL), company(NULL), timeStamp(NULL){
-
-}
+Trip::Trip(std::string id, std::string source, std::string destination, std::string company, std::string time, double price, bool isRaining):
+          tripId(id), sourceLoc(source), destination(destination), company(company), timeStamp(time), price(price), isRaining(isRaining){}
 
 Trip::~Trip(){
 	//Any needed clean up
