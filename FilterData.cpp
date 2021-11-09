@@ -15,6 +15,7 @@ std::vector<Trip> FilterTrips(const std::string sourceLocation,const std::string
             resultData.push_back(Trips[i]);
         }
     }
+    return resultData;
 }
 
 std::string ltrim(const std::string &s)
@@ -35,8 +36,27 @@ std::string trimString(const std::string &s) {
 
 std::string ConvertToLower(std::string &s)
 {
+    std::string resultString ="";
     for (int i = 0; i < s.length(); i++)
   	{
-  		s[i] = tolower(s[i]);
+  		resultString+=tolower(s[i]);
   	}
+    return resultString;
+}
+
+std::vector<Weather> FilterWeatherData(const std::string sourceLocation,const std::string DestinationLocation,const double lowerRange,const double higherRange,std::vector<Weather> WeatherData)
+{
+    std::vector<Weather> resultData;
+    std:: string trimmedSourceLocation = trimString(sourceLocation);
+    std::string resultSourceLocation = ConvertToLower(trimmedSourceLocation);
+    std::string trimmedDestinationLocation = trimString(DestinationLocation);
+    std::string resultDestinationLocation = ConvertToLower(trimmedDestinationLocation); 
+    for(int i=0;i<WeatherData.size();i++)
+    {
+        if((WeatherData[i].GetLocation()==resultSourceLocation || WeatherData[i].GetLocation()==resultDestinationLocation) && (WeatherData[i].GetRainInches()>=lowerRange || WeatherData[i].GetRainInches()<higherRange))
+        {
+            resultData.push_back(WeatherData[i]);
+        }
+    }
+    return resultData;
 }
