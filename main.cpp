@@ -1,4 +1,4 @@
-#include "Trip.cpp"
+#include "Trip.h"
 
 int main(){
 	
