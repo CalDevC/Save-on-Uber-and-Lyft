@@ -13,7 +13,7 @@ private:
 public:
   TripOverview(Trip userTrip, std::vector< Trip > data);
 
-  TravelTime calcCheapestTime();
+  TravelTime calcCheapestTime(std::vector<Trip>);
 
 };
 
