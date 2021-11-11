@@ -11,9 +11,12 @@ private:
   std::vector< Trip > dataArray;
 
 public:
+
   TripOverview(Trip userTrip, std::vector< Trip > data);
 
   TravelTime calcCheapestTime(std::vector<Trip>);
+
+  std::string convertTime(std::string);
 
 };
 
