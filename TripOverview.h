@@ -2,8 +2,8 @@
 #define TRIP_OVERVIEW_H
 
 #include <vector>
-#include "Trip.cpp"
 #include "TravelTime.cpp"
+#include "FilterData.cpp"
 
 class TripOverview{
 private:
@@ -16,7 +16,7 @@ public:
 
   TravelTime calcCheapestTime(std::vector<Trip>);
 
-  std::string convertTime(std::string);
+  std::string convertTime(long long int);
 
 };
 

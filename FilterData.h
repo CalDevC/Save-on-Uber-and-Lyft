@@ -1,12 +1,12 @@
 #ifndef FILTERDATA_H
 #define FILTERDATA_H
 
-#include<string.h>
-#include<Trip.h>
+#include <string>
+#include "Trip.cpp"
+#include "Weather.cpp"
 #include <vector>
 #include <algorithm>
 #include <cctype>
-#include<Weather.h>
 #include <math.h>
 
 namespace FilterData

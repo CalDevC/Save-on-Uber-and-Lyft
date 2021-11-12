@@ -7,6 +7,8 @@ Weather::Weather(std::string location,double rainInches,std::string Timestamp)
     this->Timestamp=Timestamp;
 }
 
+Weather::~Weather(){}
+
 std::string Weather::GetLocation()
 {
     return location;

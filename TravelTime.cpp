@@ -1,7 +1,7 @@
 #include "TravelTime.h"
 
 //Constructor
-TravelTime::TravelTime(){}
+TravelTime::TravelTime(int startingHour, int endingHour, std::string weekDay): startingHour(startingHour), endingHour(endingHour), weekDay(weekDay){}
 
 //Accessors
 int TravelTime::getStartingHour(){

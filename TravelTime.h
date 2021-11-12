@@ -10,7 +10,7 @@ private:
   std::string weekDay;
 
 public:
-  TravelTime();
+  TravelTime(int, int, std::string);
 
   //Accessors
   int getStartingHour();
