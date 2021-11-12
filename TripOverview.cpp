@@ -35,12 +35,32 @@ TravelTime TripOverview::calcCheapestTime(std::vector< Trip > data){
   }
 
   //Get averages of each hour
-  double avgs[24];
-  std::cout << std::endl;
+  double* avgs = computeAvgs(timeIncArray);
+
+  //Determine cheapest hour
+  int cheapestHour = 0;
+
+  for(int i = 1; i < 24; i++){
+      if(avgs[i] < avgs[cheapestHour])
+          cheapestHour = i;              
+  }
+
+  TravelTime t = TravelTime(cheapestHour, cheapestHour + 1, "Mon");
+
+  return t;
+  
+}
+
+double* TripOverview::computeAvgs(const std::vector<Trip>* tripVecArr){
+  double* avgs = new double[24];
+
+  //For every 1 element in the averages array
   for(int i = 0; i < 24; i++){
-    std::vector<Trip> tripVec = timeIncArray[i];
+    std::vector<Trip> tripVec = tripVecArr[i];
+
     //If vector at current hour is not empty
     if(!tripVec.empty()){
+      //Get sum of the vector
       double sum = 0.0;
       for(int j  = 0; j < tripVec.size(); j++){
         sum += tripVec.at(j).getPrice();
@@ -53,17 +73,7 @@ TravelTime TripOverview::calcCheapestTime(std::vector< Trip > data){
     }
   }
 
-  //Determine cheapest hour
-  int cheapestHour = 0;
-
-  for(int i = 1; i < 24; i++){
-      if(avgs[i] < avgs[cheapestHour])
-          cheapestHour = i;              
-  }
-
-  TravelTime t = TravelTime(cheapestHour, cheapestHour + 1, "Mon");
-  return t;
-  
+  return avgs;
 }
 
 std::string TripOverview::convertTime(long long int epochTimeInMS){

@@ -14,6 +14,8 @@ public:
 
   TripOverview(Trip userTrip, std::vector< Trip > data);
 
+  double* computeAvgs(const std::vector<Trip>*);
+
   TravelTime calcCheapestTime(std::vector<Trip>);
 
   std::string convertTime(long long int);
