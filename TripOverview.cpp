@@ -6,34 +6,62 @@
 TripOverview::TripOverview(Trip userTrip, std::vector< Trip > data): userTrip(userTrip), dataArray(data){}
 
 TravelTime TripOverview::calcCheapestTime(std::vector< Trip > data){
-  /*
-  For each trip in the trip vector:
-    Group trips by 1 hour increments
-  
-  Take the average cost from each time group
 
-  Return the 1 hour time period with the highest average
-  */
-
- //Array of arrays
- std::vector<Trip> TimeIncArray[24];
+  //Array of arrays
+  const int NUM_PIECES = 5;
+  std::vector<Trip> timeIncArray[24];
 
   for(int i = 0; i < data.size(); i++){
     Trip currentTrip = data.at(i);
 
     //Set new time
-    currentTrip.setTimeStamp(
-      convertTime(
-        FilterData::GetTimeStampNumber(
-          currentTrip.getTimeStamp()
-        )
+    std::string time = convertTime(
+      FilterData::GetTimeStampNumber(
+        currentTrip.getTimeStamp()
       )
     );
 
+    std::string timePieces[NUM_PIECES];
+
+    for(int j = 0; j < NUM_PIECES; j++){
+      size_t pos = time.find(" ");
+      timePieces[j] = time.substr(0, pos);
+      time.erase(0, pos + 1);
+    }
+
+    int hour = stoi(timePieces[3].substr(0, timePieces[3].find(":")));
+    timeIncArray[hour].push_back(currentTrip);
 
   }
 
-  TravelTime t = TravelTime(1, 2, "Mon");
+  //Get averages of each hour
+  double avgs[24];
+  std::cout << std::endl;
+  for(int i = 0; i < 24; i++){
+    std::vector<Trip> tripVec = timeIncArray[i];
+    //If vector at current hour is not empty
+    if(!tripVec.empty()){
+      double sum = 0.0;
+      for(int j  = 0; j < tripVec.size(); j++){
+        sum += tripVec.at(j).getPrice();
+      }
+
+      avgs[i] = sum/tripVec.size();
+    }
+    else{
+      avgs[i] = 10000.0; //If empty avg cost is -1
+    }
+  }
+
+  //Determine cheapest hour
+  int cheapestHour = 0;
+
+  for(int i = 1; i < 24; i++){
+      if(avgs[i] < avgs[cheapestHour])
+          cheapestHour = i;              
+  }
+
+  TravelTime t = TravelTime(cheapestHour, cheapestHour + 1, "Mon");
   return t;
   
 }
