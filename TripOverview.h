@@ -19,6 +19,8 @@ public:
    TravelTime calcCheapestTravelTime(std::vector<Trip>);
 
    std::string convertTime(long long int);
+   
+   TripOutput(); 
 
 };
 
