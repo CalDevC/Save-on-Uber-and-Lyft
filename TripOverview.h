@@ -16,7 +16,7 @@ public:
 
    std::vector<double> computeAvgs(const std::vector< std::vector<Trip> > allTripVecs, int avgVecSize);
 
-   TravelTime calcCheapestTime(std::vector<Trip>);
+   TravelTime calcCheapestTravelTime(std::vector<Trip>);
 
    std::string convertTime(long long int);
 

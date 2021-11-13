@@ -6,9 +6,8 @@
 
 TripOverview::TripOverview(Trip userTrip, std::vector< Trip > data) : userTrip(userTrip), dataArray(data) {}
 
-TravelTime TripOverview::calcCheapestTime(std::vector< Trip > data) {
+TravelTime TripOverview::calcCheapestTravelTime(std::vector< Trip > data) {
 
-   //Array of arrays
    const int NUM_PIECES = 5;
    std::vector< std::vector<Trip> > timeIncArray(24);
 
@@ -91,7 +90,6 @@ TravelTime TripOverview::calcCheapestTime(std::vector< Trip > data) {
    for (std::map<std::string, int>::iterator iter = dayMap.begin(); iter != dayMap.end(); iter++) {
       if (iter->second == cheapestDayNum) {
          cheapestDay = iter->first;
-         std::cout << cheapestDay;
          break;
       }
    }
