@@ -3,41 +3,41 @@
 
 #include <string>
 
-class Trip{
+class Trip {
 private:
-	std::string tripId;
-	std::string sourceLoc;
-	std::string destination;
-	std::string company;
-	std::string timeStamp;
-	double price;
-	bool isRaining;
+   std::string tripId;
+   std::string sourceLoc;
+   std::string destination;
+   std::string company;
+   std::string timeStamp;
+   double price;
+   bool isRaining;
 
 public:
-	//Constructor and Destructor
-	Trip(std::string id, std::string source, std::string destination, std::string company, std::string timeStamp, double price, bool isRaining);
-	~Trip();
+   //Constructor and Destructor
+   Trip(std::string id, std::string source, std::string destination, std::string company, std::string timeStamp, double price, bool isRaining);
+   ~Trip();
 
-	//Member functions
-	std::string translateTime(std::string);
+   //Member functions
+   std::string translateTime(std::string);
 
-	//Accessors
-	std::string getTripId();
-	std::string getSourceLoc();
-	std::string getDestination();
-	std::string getCompany();
-	std::string getTimeStamp();
-	double getPrice();
-	bool getIsRaining();
+   //Accessors
+   std::string getTripId();
+   std::string getSourceLoc();
+   std::string getDestination();
+   std::string getCompany();
+   std::string getTimeStamp();
+   double getPrice();
+   bool getIsRaining();
 
-	//Mutators
-	void setTripId(std::string);
-	void setSourceLoc(std::string);
-	void setDestination(std::string);
-	void setCompany(std::string);
-	void setTimeStamp(std::string);
-	void setPrice(double);
-	void setIsRaining(bool);
+   //Mutators
+   void setTripId(std::string);
+   void setSourceLoc(std::string);
+   void setDestination(std::string);
+   void setCompany(std::string);
+   void setTimeStamp(std::string);
+   void setPrice(double);
+   void setIsRaining(bool);
 };
 
 #endif

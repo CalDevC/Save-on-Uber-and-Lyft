@@ -1,25 +1,21 @@
 #include "Weather.h"
 
-Weather::Weather(std::string location,double rainInches,std::string Timestamp)
-{
-    this->location=location;
-    this->rainInches=rainInches;
-    this->Timestamp=Timestamp;
+Weather::Weather(std::string location, double rainInches, std::string Timestamp) {
+   this->location = location;
+   this->rainInches = rainInches;
+   this->Timestamp = Timestamp;
 }
 
-Weather::~Weather(){}
+Weather::~Weather() {}
 
-std::string Weather::GetLocation()
-{
-    return location;
+std::string Weather::GetLocation() {
+   return location;
 }
 
-double Weather::GetRainInches()
-{
-    return rainInches;
+double Weather::GetRainInches() {
+   return rainInches;
 }
 
-std::string Weather::GetTimestamp()
-{
-    return Timestamp;
+std::string Weather::GetTimestamp() {
+   return Timestamp;
 }

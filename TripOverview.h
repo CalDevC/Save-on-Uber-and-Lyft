@@ -5,20 +5,20 @@
 #include "TravelTime.cpp"
 #include "FilterData.cpp"
 
-class TripOverview{
+class TripOverview {
 private:
-  Trip userTrip;
-  std::vector< Trip > dataArray;
+   Trip userTrip;
+   std::vector< Trip > dataArray;
 
 public:
 
-  TripOverview(Trip userTrip, std::vector< Trip > data);
+   TripOverview(Trip userTrip, std::vector< Trip > data);
 
-  double* computeAvgs(const std::vector<Trip>*);
+   std::vector<double> computeAvgs(const std::vector< std::vector<Trip> > allTripVecs, int avgVecSize);
 
-  TravelTime calcCheapestTime(std::vector<Trip>);
+   TravelTime calcCheapestTime(std::vector<Trip>);
 
-  std::string convertTime(long long int);
+   std::string convertTime(long long int);
 
 };
 

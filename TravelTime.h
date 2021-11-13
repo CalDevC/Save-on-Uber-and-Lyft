@@ -3,24 +3,24 @@
 
 #include <string>
 
-class TravelTime{
+class TravelTime {
 private:
-  int startingHour;
-  int endingHour;
-  std::string weekDay;
+   int startingHour;
+   int endingHour;
+   std::string weekDay;
 
 public:
-  TravelTime(int, int, std::string);
+   TravelTime(int, int, std::string);
 
-  //Accessors
-  int getStartingHour();
-  int getEndingHour();
-  std::string getWeekDay();
+   //Accessors
+   int getStartingHour();
+   int getEndingHour();
+   std::string getWeekDay();
 
-  //Mutators
-  void setStartingHour(int);
-  void setEndingHour(int);
-  void setWeekDay(std::string);
+   //Mutators
+   void setStartingHour(int);
+   void setEndingHour(int);
+   void setWeekDay(std::string);
 
 };
 
