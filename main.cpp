@@ -32,7 +32,7 @@ int main() {
    getline(std::cin, sourceLoc);
    std::cout<<"Enter your destination: ";
    getline(std::cin, destinationLoc);
-   std::cout<<"Choose weather option from below:\na. no rain\nb. light rain\nc. moderate rain\nd. heavy rainning\n";
+   std::cout<<"Choose weather option from below:\na. no rain\nb. light rain\nc. moderate rain\nd. heavy rain\n";
    getline(std::cin, weather);
    std::string tempWeather = weather;
    if(tempWeather == "no rain"){
