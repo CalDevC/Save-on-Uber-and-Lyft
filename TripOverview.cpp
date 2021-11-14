@@ -124,16 +124,16 @@ std::vector<double> TripOverview::computeAvgs(const std::vector< std::vector<Tri
    return avgs;
 }
 
-TripOutput(){
-   std::cout << "Overall Trip Analysis:" << endl; 
-   std::cout << "Least expensive hour: " << cheapestHour << endl;
+void TripOverview::TripOutput(){
+   std::cout << "Overall Trip Analysis:" << std::endl; 
+   /*std::cout << "Least expensive hour: " << cheapestHour << std::endl;
    std::cout << "Least expensive day: " << cheapestDay << endl; 
    std::cout << "Best time to travel: " << cheapestDay << " at " cheapestHour << ":00" << endl; 
    std::cout << "Averages for each hour: " << endl; 
    for(int i = 0; i < avgVecSize; i++){
     std::cout << avgs[i] << endl;   
    }
-   std::cout << "Most cost effective trip: " << currentTrip << endl; 
+   std::cout << "Most cost effective trip: " << currentTrip << endl; */
 }
 
 std::string TripOverview::convertTime(long long int epochTimeInMS) {

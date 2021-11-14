@@ -1,5 +1,4 @@
 #include "FilterData.h"
-#include "iostream"
 const std::string WHITESPACE = " \n\r\t\f\v";
 
 namespace FilterData {
@@ -10,7 +9,11 @@ namespace FilterData {
       std::string trimmedDestinationLocation = trimString(DestinationLocation);
       std::string resultDestinationLocation = ConvertToLower(trimmedDestinationLocation);
       for (int i = 0;i < Trips.size();i++) {
-         if (Trips[i].getSourceLoc() == resultSourceLocation && Trips[i].getDestination() == resultDestinationLocation) {
+          std::string TripSourceLocationTrimmed=trimString(Trips[i].getSourceLoc());
+          std::string TripResultSourceLocation=ConvertToLower(TripSourceLocationTrimmed);
+          std::string TripDestinationLocationTrimmed = trimString(Trips[i].getDestination());
+          std::string TripResultDestinationLocation=ConvertToLower(TripDestinationLocationTrimmed);
+         if (TripResultSourceLocation == resultSourceLocation && TripResultDestinationLocation == resultDestinationLocation) {
             resultData.push_back(Trips[i]);
          }
       }
@@ -46,8 +49,17 @@ namespace FilterData {
       std::string trimmedDestinationLocation = trimString(DestinationLocation);
       std::string resultDestinationLocation = ConvertToLower(trimmedDestinationLocation);
       for (int i = 0;i < WeatherData.size();i++) {
-         if ((WeatherData[i].GetLocation() == resultSourceLocation || WeatherData[i].GetLocation() == resultDestinationLocation) && (WeatherData[i].GetRainInches() >= lowerRange || WeatherData[i].GetRainInches() < higherRange)) {
-            resultData.push_back(WeatherData[i]);
+          std::string WeatherLocationTrimmed=trimString(WeatherData[i].GetLocation());
+          std::string ResultWeatherLocation=ConvertToLower(WeatherLocationTrimmed);
+         if ((ResultWeatherLocation == resultSourceLocation || ResultWeatherLocation == resultDestinationLocation)) {
+            if(WeatherData[i].GetRainInches() >= lowerRange && WeatherData[i].GetRainInches() < higherRange)
+            {
+                resultData.push_back(WeatherData[i]);
+            }
+            else if (WeatherData[i].GetRainInches() >= lowerRange && higherRange==0)
+            {
+                resultData.push_back(WeatherData[i]);
+            }
          }
       }
       return resultData;
@@ -55,15 +67,17 @@ namespace FilterData {
 
    std::vector<Trip> MatchTripsWithWeather(std::vector<Trip> FilteredTrips, std::vector<Weather> FilteredWeather) {
       std::vector<Trip> resultData;
+      std::map<std::string,int> resultSet;
       for (int i = 0;i < FilteredWeather.size();i++) {
          std::string StringTimeStamp = FilteredWeather[i].GetTimestamp();
          long long int TimeStamp = GetTimeStampNumber(StringTimeStamp);
          long long int lowerRange = TimeStamp - 3600;
          long long int upperRange = TimeStamp + 3600;
          for (int j = 0;j < FilteredTrips.size();j++) {
-            long long int TripTimestamp = GetTimeStampNumber(FilteredTrips[i].getTimeStamp()) / 1000;
-            if (TripTimestamp >= lowerRange && TripTimestamp < upperRange) {
+            long long int TripTimestamp = GetTimeStampNumber(FilteredTrips[j].getTimeStamp()) / 1000;
+            if (TripTimestamp >= lowerRange && TripTimestamp < upperRange && resultSet.find(FilteredTrips[j].getTripId())==resultSet.end()) {
                resultData.push_back(FilteredTrips[j]);
+               resultSet[FilteredTrips[j].getTripId()]=0;
             }
          }
       }

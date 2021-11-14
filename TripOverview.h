@@ -20,7 +20,7 @@ public:
 
    std::string convertTime(long long int);
    
-   TripOutput(); 
+   void TripOutput(); 
 
 };
 

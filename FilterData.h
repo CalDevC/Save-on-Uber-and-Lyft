@@ -8,6 +8,8 @@
 #include <algorithm>
 #include <cctype>
 #include <math.h>
+#include "iostream"
+#include "map"
 
 namespace FilterData {
    std::vector<Trip> FilterTrips(const std::string sourceLocation, const std::string DestinationLocation, std::vector<Trip> Trips);
