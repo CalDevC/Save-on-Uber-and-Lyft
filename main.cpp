@@ -85,4 +85,28 @@ int main() {
    {
       std::cout<<ResultTrips[i].getCompany()<<" "<<ResultTrips[i].getDestination()<<" "<<ResultTrips[i].getIsRaining()<<" "<<ResultTrips[i].getPrice()<<" "<<ResultTrips[i].getSourceLoc()<<" "<<ResultTrips[i].getTimeStamp()<<" "<<ResultTrips[i].getTripId()<<"\n";  
    }
+   //outputting results of trip overview 
+   std::cout << "Overall Trip Analysis:" << std::endl;
+   std::cout << "Least expensive travel time:" << TripOverview.calcCheapestTime(data) << std::endl;
+   std::cout << "Average travel times per hour:" << std:: endl;
+   for(int i = 0; i < data.size(); i++){
+    std::cout << data(i).computeAvgs() << std::endl;  
+   }
+   std::cout << "----------------" << std::endl;
+   std::cout << "Matching filtered trips: " << std::endl;
+   for(int i = 0; i < FilteredTrips.size(); i++){
+    std::cout << FilteredTrips[i] << std::endl;   
+   }
+   std::cout << "----------------" << std::endl; 
+   std::cout << "Trips matching weather prerequisites: " << std::endl;
+   for(int i = 0; i < FillteredWeather.size(); i++){
+    std::cout << FillteredWeather[i] << std::endl; 
+   }
+   std::cout << "----------------" << std::endl;
+   std::cout << "Finalized filtered trips: " << std::endl;
+   for(int i = 0; i < ResultTrips.size(); i++){
+    std::cout << ResultTrips[i] << std::endl;   
+   }
+   
+   
 }
