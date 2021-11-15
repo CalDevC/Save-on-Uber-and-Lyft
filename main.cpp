@@ -58,6 +58,7 @@ int main() {
    std::vector<Trip> userTrip = FilterData::FilterTrips(sourceLoc, destinationLoc, TripData);
 
    std::vector<Weather> userWeather = FilterData::FilterWeatherData(sourceLoc, destinationLoc, lowerRange, higherRange, WeatherData);
+
    
    /*for(int i=0;i<TripData.size();i++)
    {
