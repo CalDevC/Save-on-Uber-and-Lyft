@@ -22,11 +22,11 @@ int main() {
    std::cin >> selection;
    switch(selection){
       case 'a':
-         lowerRange = 0.000;
-         higherRange = 0.000;
+         lowerRange = 0;
+         higherRange = 0;
          break;
       case 'b':
-         lowerRange = 0.0001;
+         lowerRange = 0.000;
          higherRange = 0.1000;
          break;
       case 'c':
