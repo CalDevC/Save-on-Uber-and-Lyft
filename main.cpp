@@ -6,108 +6,72 @@
 #include "FilterData.h"
 
 int main() {
-   std::string sourceLoc, destinationLoc, weather;
+
+   std::string sourceLoc, destinationLoc;
    double lowerRange, higherRange;
-   Trip a = Trip("424553bb-7174-41ea-aeb4-fe06d4f4b9d7", "Haymarket Square", "North Station", "Lyft", "1544952607890", 5.0, false);
-   Trip b = Trip("424553bb-7174-41ea-aeb4-fe06d4f4b9d7", "Haymarket Square", "North Station", "Lyft", "1543805278271", 15.0, false);
-   Trip c = Trip("424553bb-7174-41ea-aeb4-fe06d4f4b9d7", "Haymarket Square", "North Station", "Lyft", "1545098110455", 10.0, false);
-   Trip d = Trip("424553bb-7174-41ea-aeb4-fe06d4f4b9d7", "Haymarket Square", "North Station", "Lyft", "1545098110455", 25.0, false);
-   Trip e = Trip("424553bb-7174-41ea-aeb4-fe06d4f4b9d7", "Haymarket Square", "North Station", "Lyft", "1545098110455", 20.0, false);
-   Trip f = Trip("424553bb-7174-41ea-aeb4-fe06d4f4b9d7", "Haymarket Square", "North Station", "Lyft", "1544952607890", 10.0, false);
+   char selection;
 
-   std::vector<Trip> data;
-   data.push_back(a);
-   data.push_back(b);
-   data.push_back(c);
-   data.push_back(d);
-   data.push_back(e);
-   data.push_back(f);
-
-   TripOverview overview = TripOverview(a, data);
-
-   overview.calcCheapestTravelTime(data);
-
-   std::cout<<"Start Program Execution"<<"\n";
-   std::cout<<"Enter your location: ";
+   std::cout << "Start Program Execution" << "\n";
+   std::cout << "Enter your location: ";
    getline(std::cin, sourceLoc);
-   std::cout<<"Enter your destination: ";
+   std::cout << "Enter your destination: ";
    getline(std::cin, destinationLoc);
-   std::cout<<"Choose weather option from below:\na. no rain\nb. light rain\nc. moderate rain\nd. heavy rain\n";
-   getline(std::cin, weather);
-   std::string tempWeather = weather;
-   if(tempWeather == "no rain"){
-      lowerRange = 0.000;
-      higherRange = 0.000;
-   } else if(tempWeather == "light rain"){
-      lowerRange = 0;
-      higherRange = 0.1000;
-   } else if(tempWeather == "moderate rain"){
-      lowerRange = 0.1000;
-      higherRange = 0.3000;
+   std::cout << "Choose weather option from below:\na. no rain\nb. light rain\nc. moderate rain\nd. heavy rain\n";
+
+   std::cin >> selection;
+   switch(selection){
+      case 'a':
+         lowerRange = 0.000;
+         higherRange = 0.000;
+         break;
+      case 'b':
+         lowerRange = 0.0001;
+         higherRange = 0.1000;
+         break;
+      case 'c':
+         lowerRange = 0.1000;
+         higherRange = 0.3000;
+         break;
+      case 'd':
+         lowerRange = 0.3000;
+         higherRange = 1.000;
+         break;
+      default:
+         break;
    }
-   else{
-      lowerRange = 0.3000;
-      higherRange = 1.000;
-   }
-   
-   
-   
+
+   ///////////?REMOVE//////////////////////
+   sourceLoc = "Haymarket Square";
+   destinationLoc = "North Station";
+   lowerRange = 0.000;
+   higherRange = 0.000;
+   ///////////?REMOVE//////////////////////
+
+
+
+   //Build user's Trip
+   Trip userTrip = Trip("NULL", sourceLoc, destinationLoc, "NULL", "NULL", 0.00, higherRange != 0.000);
+
+   //Read in data from files
+   std::cout << "Reading in data from files..." << std::endl;
    std::vector<Trip> TripData = read_file_into_trip("cab_rides.csv");
    std::vector<Weather> WeatherData = read_file_into_weather("weather.csv");
-
-   std::vector<Trip> userTrip = FilterData::FilterTrips(sourceLoc, destinationLoc, TripData);
-
-   std::vector<Weather> userWeather = FilterData::FilterWeatherData(sourceLoc, destinationLoc, lowerRange, higherRange, WeatherData);
-
    
-   /*for(int i=0;i<TripData.size();i++)
-   {
-      std::cout<<TripData[i].getCompany()<<" "<<TripData[i].getDestination()<<" "<<TripData[i].getIsRaining()<<" "<<TripData[i].getPrice()<<" "<<TripData[i].getSourceLoc()<<" "<<TripData[i].getTimeStamp()<<" "<<TripData[i].getTripId()<<"\n";
-   }
+   //Filter the data based on user inputs
+   std::vector<Weather> filteredWeather = FilterData::FilterWeatherData(sourceLoc, destinationLoc, lowerRange, higherRange, WeatherData);
+   std::vector<Trip> filteredTrips = FilterData::FilterTrips(sourceLoc, destinationLoc, TripData);
+   std::vector<Trip> filteredData = FilterData::MatchTripsWithWeather(filteredTrips, filteredWeather);
 
-   for(int i=0;i<WeatherData.size();i++)
-   {
-      std::cout<<WeatherData[i].GetLocation()<<" "<<WeatherData[i].GetRainInches()<<" "<<WeatherData[i].GetTimestamp()<<"\n";
-   }*/
+   std::cout << "Calculating your trip overview..." << std::endl;
+   //Calculate Trip overview
+   TripOverview overview = TripOverview(userTrip, filteredData);
+   TravelTime cheapTime = overview.calcCheapestTravelTime();
 
-   std::vector<Trip> FilteredTrips = FilterData::FilterTrips("  West end   ","   North End    ",TripData);
-   /*for(int i=0;i<FilteredTrips.size();i++)
-   {
-      std::cout<<FilteredTrips[i].getCompany()<<" "<<FilteredTrips[i].getDestination()<<" "<<FilteredTrips[i].getIsRaining()<<" "<<FilteredTrips[i].getPrice()<<" "<<FilteredTrips[i].getSourceLoc()<<" "<<FilteredTrips[i].getTimeStamp()<<" "<<FilteredTrips[i].getTripId()<<"\n";  
-   }*/
-   std::vector<Weather> FillteredWeather = FilterData::FilterWeatherData("west end","North end",0,0,WeatherData);
-   /*for(int i=0;i<FillteredWeather.size();i++)
-   {
-      std::cout<<FillteredWeather[i].GetLocation()<<" "<<FillteredWeather[i].GetRainInches()<<" "<<FillteredWeather[i].GetTimestamp()<<"\n";
-   }*/
+   // //outputting results of trip overview 
+   // std::cout << "Overall Trip Analysis:" << std::endl
+   //           << filteredData.size() << " data points found..." << std::endl
+   //           << "Least expensive travel time:" << std::endl
+   //           << cheapTime.getStartingHour() << "-" << std::endl
+   //           << cheapTime.getEndingHour() << "EST" << std::endl;
 
-   std::vector<Trip> ResultTrips = FilterData::MatchTripsWithWeather(FilteredTrips,FillteredWeather);
-   for(int i=0;i<ResultTrips.size();i++)
-   {
-      std::cout<<ResultTrips[i].getCompany()<<" "<<ResultTrips[i].getDestination()<<" "<<ResultTrips[i].getIsRaining()<<" "<<ResultTrips[i].getPrice()<<" "<<ResultTrips[i].getSourceLoc()<<" "<<ResultTrips[i].getTimeStamp()<<" "<<ResultTrips[i].getTripId()<<"\n";  
-   }
-   //outputting results of trip overview 
-   std::cout << "Overall Trip Analysis:" << std::endl;
-   std::cout << "Least expensive travel time:" << TripOverview.calcCheapestTime(data) << std::endl;
-   std::cout << "Average travel times per hour:" << std:: endl;
-   for(int i = 0; i < data.size(); i++){
-    std::cout << data(i).computeAvgs() << std::endl;  
-   }
-   std::cout << "----------------" << std::endl;
-   std::cout << "Matching filtered trips: " << std::endl;
-   for(int i = 0; i < FilteredTrips.size(); i++){
-    std::cout << FilteredTrips[i] << std::endl;   
-   }
-   std::cout << "----------------" << std::endl; 
-   std::cout << "Trips matching weather prerequisites: " << std::endl;
-   for(int i = 0; i < FillteredWeather.size(); i++){
-    std::cout << FillteredWeather[i] << std::endl; 
-   }
-   std::cout << "----------------" << std::endl;
-   std::cout << "Finalized filtered trips: " << std::endl;
-   for(int i = 0; i < ResultTrips.size(); i++){
-    std::cout << ResultTrips[i] << std::endl;   
-   }
-   
-   
 }
