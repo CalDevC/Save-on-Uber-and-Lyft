@@ -6,18 +6,19 @@
 #include "FilterData.h"
 
 int main() {
-
+   //Variables
    std::string sourceLoc, destinationLoc;
    double lowerRange, higherRange;
    char selection;
 
-   std::cout << "Start Program Execution" << "\n";
-   std::cout << "Enter your location: ";
+   //Get user input
+   std::cout << "Enter your starting location: ";
    getline(std::cin, sourceLoc);
    std::cout << "Enter your destination: ";
    getline(std::cin, destinationLoc);
    std::cout << "Choose weather option from below:\na. no rain\nb. light rain\nc. moderate rain\nd. heavy rain\n";
 
+   //Assign rain values based on user's selection
    std::cin >> selection;
    switch(selection){
       case 'a':
@@ -40,15 +41,6 @@ int main() {
          break;
    }
 
-   ///////////?REMOVE//////////////////////
-   sourceLoc = "Haymarket Square";
-   destinationLoc = "North Station";
-   lowerRange = 0.000;
-   higherRange = 0.000;
-   ///////////?REMOVE//////////////////////
-
-
-
    //Build user's Trip
    Trip userTrip = Trip("NULL", sourceLoc, destinationLoc, "NULL", "NULL", 0.00, higherRange != 0.000);
 
@@ -61,17 +53,42 @@ int main() {
    std::vector<Weather> filteredWeather = FilterData::FilterWeatherData(sourceLoc, destinationLoc, lowerRange, higherRange, WeatherData);
    std::vector<Trip> filteredTrips = FilterData::FilterTrips(sourceLoc, destinationLoc, TripData);
    std::vector<Trip> filteredData = FilterData::MatchTripsWithWeather(filteredTrips, filteredWeather);
+   std::cout << filteredData.size() << " data points found..." << std::endl;
 
-   std::cout << "Calculating your trip overview..." << std::endl;
    //Calculate Trip overview
+   std::cout << "Calculating your trip overview..." << std::endl;
    TripOverview overview = TripOverview(userTrip, filteredData);
    TravelTime cheapTime = overview.calcCheapestTravelTime();
 
    //outputting results of trip overview 
    std::cout << "\n\nOverall Trip Analysis:" << std::endl
-             << filteredData.size() << " data points found..." << std::endl
              << "Least expensive travel time:" << std::endl
-             << cheapTime.getStartingHour() << "-"
-             << cheapTime.getEndingHour() << "EST" << std::endl;
+             << cheapTime.getWeekDay() << " ";
+
+   if(cheapTime.getStartingHour() > 12 ){
+      cheapTime.setStartingHour(cheapTime.getStartingHour() - 12);
+      std::cout << cheapTime.getStartingHour() << "PM";
+   }
+   else{
+      if(cheapTime.getStartingHour() == 0){
+         cheapTime.setStartingHour(12);
+      }
+      std::cout << cheapTime.getStartingHour() << "AM";
+   }
+
+   std::cout << "-";
+
+   if(cheapTime.getEndingHour() > 12 ){
+      cheapTime.setEndingHour(cheapTime.getEndingHour() - 12);
+      std::cout << cheapTime.getEndingHour() << "PM";
+   }
+   else{
+      if(cheapTime.getEndingHour() == 0){
+         cheapTime.setEndingHour(12);
+      }
+      std::cout << cheapTime.getEndingHour() << "AM";
+   }
+
+   std::cout << std::endl;
 
 }
