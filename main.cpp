@@ -67,11 +67,11 @@ int main() {
    TripOverview overview = TripOverview(userTrip, filteredData);
    TravelTime cheapTime = overview.calcCheapestTravelTime();
 
-   // //outputting results of trip overview 
-   // std::cout << "Overall Trip Analysis:" << std::endl
-   //           << filteredData.size() << " data points found..." << std::endl
-   //           << "Least expensive travel time:" << std::endl
-   //           << cheapTime.getStartingHour() << "-" << std::endl
-   //           << cheapTime.getEndingHour() << "EST" << std::endl;
+   //outputting results of trip overview 
+   std::cout << "\n\nOverall Trip Analysis:" << std::endl
+             << filteredData.size() << " data points found..." << std::endl
+             << "Least expensive travel time:" << std::endl
+             << cheapTime.getStartingHour() << "-"
+             << cheapTime.getEndingHour() << "EST" << std::endl;
 
 }

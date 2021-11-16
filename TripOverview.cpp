@@ -59,41 +59,41 @@ TravelTime TripOverview::calcCheapestTravelTime() {
    std::vector<Trip> bestTimeVec = timeIncArray.at(cheapestHour);
    std::vector< std::vector<Trip> > daysVec(7);
 
-   // for (int i = 0; i < bestTimeVec.size(); i++) {
-   //    Trip currentTrip = bestTimeVec.at(i);
+   for (int i = 0; i < bestTimeVec.size(); i++) {
+      Trip currentTrip = bestTimeVec.at(i);
 
-   //    //adjust time
-   //    std::string time = convertTime(
-   //       FilterData::GetTimeStampNumber(
-   //          currentTrip.getTimeStamp()
-   //       )
-   //    );
+      //adjust time
+      std::string time = convertTime(
+         FilterData::GetTimeStampNumber(
+            currentTrip.getTimeStamp()
+         )
+      );
 
-   //    std::string day = time.substr(0, time.find(" "));
-   //    daysVec.at(dayMap[day]).push_back(currentTrip);
+      std::string day = time.substr(0, time.find(" "));
+      daysVec.at(dayMap[day]).push_back(currentTrip);
 
-   // }
+   }
 
-   // std::vector<double> dayAvgs = computeAvgs(daysVec, 7);
+   std::vector<double> dayAvgs = computeAvgs(daysVec, 7);
 
-   // //Determine cheapest day
-   // int cheapestDayNum = 0;
+   //Determine cheapest day
+   int cheapestDayNum = 0;
 
-   // for (int i = 1; i < daysVec.size(); i++) {
-   //    if (dayAvgs.at(i) < dayAvgs.at(cheapestHour)) {
-   //       cheapestDayNum = i;
-   //    }
-   // }
+   for (int i = 0; i < daysVec.size(); i++) {
+      if (dayAvgs.at(i) < dayAvgs.at(cheapestDayNum)) {
+         cheapestDayNum = i;
+      }
+   }
 
-   // std::string cheapestDay;
+   std::string cheapestDay;
 
-   // // Traverse the map to find the string associated with the day number
-   // for (std::map<std::string, int>::iterator iter = dayMap.begin(); iter != dayMap.end(); iter++) {
-   //    if (iter->second == cheapestDayNum) {
-   //       cheapestDay = iter->first;
-   //       break;
-   //    }
-   // }
+   // Traverse the map to find the string associated with the day number
+   for (std::map<std::string, int>::iterator iter = dayMap.begin(); iter != dayMap.end(); iter++) {
+      if (iter->second == cheapestDayNum) {
+         cheapestDay = iter->first;
+         break;
+      }
+   }
 
    TravelTime t = TravelTime(cheapestHour, cheapestHour + 1, "Mon");
    return t;
@@ -123,18 +123,6 @@ std::vector<double> TripOverview::computeAvgs(const std::vector< std::vector<Tri
    }
 
    return avgs;
-}
-
-void TripOverview::TripOutput(){
-   std::cout << "Overall Trip Analysis:" << std::endl; 
-   /*std::cout << "Least expensive hour: " << cheapestHour << std::endl;
-   std::cout << "Least expensive day: " << cheapestDay << endl; 
-   std::cout << "Best time to travel: " << cheapestDay << " at " cheapestHour << ":00" << endl; 
-   std::cout << "Averages for each hour: " << endl; 
-   for(int i = 0; i < avgVecSize; i++){
-    std::cout << avgs[i] << endl;   
-   }
-   std::cout << "Most cost effective trip: " << currentTrip << endl; */
 }
 
 std::string TripOverview::convertTime(long long int epochTimeInMS) {
